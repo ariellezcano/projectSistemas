@@ -1,0 +1,1 @@
+//export {DepartamentoService} from './component/departamento.service';

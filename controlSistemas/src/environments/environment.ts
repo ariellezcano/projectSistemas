@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+
+  URL:'http://10.125.30.248/api/',
+  URLOci: 'https://policiadigital.chaco.gob.ar:9090/api_oci/',
 };
 
 /*
