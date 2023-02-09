@@ -5,13 +5,13 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class EstadosService {
+export class SistemasService {
 
   other_header: any;
   api: any;
   
   constructor(private http: HttpClient) {   
-    this.api = environment.URL + "Estados";
+    this.api = environment.URL + "Sistemas";
   }
 
   getFindId(id:any){
@@ -93,7 +93,7 @@ export class EstadosService {
 
   doFilter(criterio: any){
     this.other_header = this.other_header;
-    const ruta = this.api+'/'+'filterEstados/';
+    const ruta = this.api+'/'+'filterSistemas/';
     return this.http
       .get(ruta + criterio)
       .toPromise()

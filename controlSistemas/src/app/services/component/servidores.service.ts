@@ -3,21 +3,20 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class EstadosService {
-
+export class ServidoresService {
   other_header: any;
   api: any;
-  
-  constructor(private http: HttpClient) {   
-    this.api = environment.URL + "Estados";
+
+  constructor(private http: HttpClient) {
+    this.api = environment.URL + 'Servidores';
   }
 
-  getFindId(id:any){
+  getFindId(id: any) {
     this.other_header = this.other_header;
     return this.http
-      .get(this.api +"/"+ id, { headers: this.other_header })
+      .get(this.api + '/' + id, { headers: this.other_header })
       .toPromise()
       .catch((err) => {
         return {
@@ -31,7 +30,7 @@ export class EstadosService {
   getList(page: any, cantidad: any) {
     this.other_header = this.other_header;
     return this.http
-      .get(this.api +"/paginate/"+ page+","+cantidad)
+      .get(this.api + '/paginate/' + page + ',' + cantidad)
       .toPromise()
       .catch((err) => {
         return {
@@ -42,14 +41,13 @@ export class EstadosService {
       });
   }
 
-  doInsert(evento: object){
+  doInsert(evento: object) {
     this.other_header = this.other_header;
     return this.http
-      .post(this.api, evento, 
-      { headers: this.other_header })
+      .post(this.api, evento, { headers: this.other_header })
       .toPromise()
       .catch((err) => {
-        console.log("ERROR",err);
+        console.log('ERROR', err);
         return {
           code: 500,
           data: err.message,
@@ -62,8 +60,7 @@ export class EstadosService {
     this.other_header = this.other_header;
 
     return this.http
-      .put(this.api +'/'+ id, evento, 
-      { headers: this.other_header })
+      .put(this.api + '/' + id, evento, { headers: this.other_header })
       .toPromise()
       .catch((err) => {
         console.log(err);
@@ -75,12 +72,10 @@ export class EstadosService {
       });
   }
 
-
   doDelete(id: number) {
     this.other_header = this.other_header;
     return this.http
-      .delete(this.api +'/'+ id, 
-      { headers: this.other_header })
+      .delete(this.api + '/' + id, { headers: this.other_header })
       .toPromise()
       .catch((err) => {
         return {
@@ -91,14 +86,14 @@ export class EstadosService {
       });
   }
 
-  doFilter(criterio: any){
+  doFilter(criterio: any) {
     this.other_header = this.other_header;
-    const ruta = this.api+'/'+'filterEstados/';
+    const ruta = this.api + '/' + 'filterServidores/';
     return this.http
       .get(ruta + criterio)
       .toPromise()
       .catch((err) => {
-        return { 
+        return {
           code: 500,
           data: err.message,
           msg: 'Error en el servicio',

@@ -1,0 +1,35 @@
+<div
+  class="side-navbar active-nav d-flex justify-content-between flex-wrap flex-column"
+  id="sidebar"
+>
+  <ul class="nav flex-column text-white w-100">
+    <a class="nav-link h3 text-white my-2">
+      <center>Menú</center>
+    </a>
+    <hr>
+    <li class="nav-link">
+      <a aria-current="page" [routerLink]="['/lst-estados/']">
+        <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+        <b> Estados </b>
+      </a>
+    </li>
+    <li class="nav-link">
+      <a aria-current="page" [routerLink]="['/lst-tipoServidores/']">
+        <i class="fa fa-file-text-o" aria-hidden="true"></i>
+        <b> Tipos de Servidores </b>
+      </a>
+    </li>
+    <li class="nav-link">
+      <a aria-current="page" [routerLink]="['/lst-servidores/']">
+        <i class="fa fa-server" aria-hidden="true"></i>
+        <b> Servidores </b>
+      </a>
+    </li>
+    <li class="nav-link">
+      <a aria-current="page" [routerLink]="['/lst-sistemas/']">
+        <i class="fa fa-assistive-listening-systems" aria-hidden="true"></i>
+        <b> Sistemas </b>
+      </a>
+    </li>
+  </ul>
+</div>

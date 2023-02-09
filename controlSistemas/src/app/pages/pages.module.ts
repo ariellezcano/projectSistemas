@@ -6,10 +6,16 @@ import { PagesRoutingModule } from "./pages-routing.module";
 import { HttpClientModule } from "@angular/common/http";
 import { PagesComponent } from "./pages.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SidebarComponent } from './compartido/sidebar/sidebar.component';
+import { NavbarComponent } from './compartido/navbar/navbar.component';
+import { LstEstadoComponent } from './lst/lst-estado/lst-estado.component';
 
 @NgModule({
     declarations: [
       PagesComponent,
+      SidebarComponent,
+      NavbarComponent,
+      LstEstadoComponent,
       
     ],
     exports: [],
