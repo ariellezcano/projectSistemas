@@ -1,31 +1,33 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Estados } from 'src/app/models/index.models';
-import { EstadosService } from 'src/app/services/index.service';
+import { Sistemas } from 'src/app/models/index.models';
+import { SistemasService } from 'src/app/services/index.service';
 import Swal from 'sweetalert2';
-import { FilEstadosComponent } from '../../filters/fil-estados/fil-estados.component';
+import { FilSistemasComponent } from '../../filters/fil-sistemas/fil-sistemas.component';
 
 @Component({
-  selector: 'app-lst-estado',
-  templateUrl: './lst-estado.component.html',
-  styleUrls: ['./lst-estado.component.scss']
+  selector: 'app-lst-sistemas',
+  templateUrl: './lst-sistemas.component.html',
+  styleUrls: ['./lst-sistemas.component.scss']
 })
-export class LstEstadoComponent implements OnInit {
-  @ViewChild(FilEstadosComponent, { static: false }) fil!: FilEstadosComponent;
+export class LstSistemasComponent implements OnInit {
 
-  items: Estados[];
-  item: Estados;
+  @ViewChild(FilSistemasComponent, { static: false }) fil!: FilSistemasComponent;
 
-  constructor(private wsdl: EstadosService, private router: Router) {
+  items: Sistemas[];
+  item: Sistemas;
+
+  constructor(private wsdl: SistemasService, private router: Router) {
     this.items = [];
-    this.item = new Estados();
+    this.item = new Sistemas();
   }
 
   ngOnInit(): void {
   }
 
 
-  doFound(event: Estados[]) {
+  doFound(event: Sistemas[]) {
+    console.log(event)
     this.items = event;
   }
 
@@ -82,10 +84,11 @@ export class LstEstadoComponent implements OnInit {
   }
 
   linkear(id?: Number) {
-    this.router.navigateByUrl('lst-estados/abm/' + id);
+    this.router.navigateByUrl('lst-sistemas/abm/' + id);
   }
 
   back() {
     this.router.navigate(['']);
   }
+
 }

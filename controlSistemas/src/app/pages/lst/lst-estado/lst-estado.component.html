@@ -1,34 +1,74 @@
 <div class="container-fluid">
-    <br>
-    <div class="row alert alert-info">
-        <div class="col-md-6">
-            <legend for=""> <b>Lista de Estados</b></legend>
-        </div>
-        <div class="col-md-6">
-            <button class="btn btn-primary">
-                <i class="fa fa-pencil-square" aria-hidden="true"></i>&nbsp;
-                Agregar
-            </button>
-        </div>
+  <br />
+  <div class="row alert alert-info">
+    <div class="col-md-6">
+      <legend for=""><b>Lista de Estados</b></legend>
     </div>
-    <div class="row">
-        <table class="table table-bordered border-primary">
-            <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-              </tbody>
-          </table>
+    <div class="col-md-6">
+      <button (click)="linkear(0)" class="btn btn-primary">
+        <i class="fa fa-pencil-square" aria-hidden="true"></i>&nbsp; Agregar
+      </button>
     </div>
+  </div>
+  <div class="row">
+    <app-fil-estados (emmit)="doFound($event)"></app-fil-estados>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-bordered border-primary text-center">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items">
+            <th>{{ item.id }}</th>
+            <td class="text-primary">{{ item.nombre }}</td>
+            <td>{{ valor(item.activo) }}</td>
+            <td>
+              <button
+                type="button"
+                (click)="linkear(item.id)"
+                title="Modificar"
+                placement="top"
+                show-delay="10"
+                class="btn btn-info btn-sm"
+              >
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+              </button>
+              &nbsp;
+              <button
+                type="button"
+                (click)="eliminar(item.id)"
+                title="Eliminar"
+                placement="top"
+                show-delay="10"
+                class="btn btn-danger btn-sm"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      *ngIf="items.length === 0"
+      class="alert alert-info alert-dismissible fade show text-center"
+      role="alert"
+    >
+      <strong>No hay datos</strong>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <button class="btn btn-primary" type="button" (click)="back()">
+      <i class="fa fa-hand-o-left" aria-hidden="true"></i> &nbsp; Volver a
+      Inicio
+    </button>
+  </div>
 </div>

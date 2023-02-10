@@ -1,0 +1,157 @@
+<div class="container-fluid">
+  <br />
+  <div class="row alert alert-success text-center">
+    <div class="col-md-12">
+      <legend><b>Panel Administrador de Sistemas</b></legend>
+    </div>
+  </div>
+  <div class="row">
+    <form class="text-center" [formGroup]="form" (ngSubmit)="doAction()">
+      <div class="form-group row">
+        <div class="col-md-6">
+          <label for="Nombre" class="col-sm-12 col-form-label"
+            >Fecha Presentación:</label
+          >
+          <input
+            [(ngModel)]="item.fechaPresentacion"
+            id="codigo"
+            type="date"
+            class="form-control"
+            formControlName="fechaPresentacion"
+            [ngClass]="{
+              'is-invalid': enviado && f['fechaPresentacion'].errors
+            }"
+          />
+          <div
+            *ngIf="enviado && f['fechaPresentacion'].errors"
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['fechaPresentacion'].errors['required']">
+              Campo obligatorio
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div id="autocompletado" class="col-md-6">
+            <label for="" class="col-sm-12 col-form-label">Unidad:</label>
+            <app-fil-autocompletado-unidad
+              (unidadSeleccionada)="unidad($event)"
+            >
+            </app-fil-autocompletado-unidad>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="item.unidad" class="row">
+        <div class="col-md-12 alert alert-info">
+          Unidad Seleccionada:&nbsp;&nbsp;<b>{{ item.nombreUnidad }}</b>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-6">
+          <label for="Nombre" class="col-sm-12 col-form-label"
+            >Nombre del Sistema:</label
+          >
+          <input
+            [(ngModel)]="item.nombre"
+            id="codigo"
+            type="text"
+            class="form-control"
+            formControlName="nombre"
+            [ngClass]="{ 'is-invalid': enviado && f['nombre'].errors }"
+          />
+          <div *ngIf="enviado && f['nombre'].errors" class="invalid-feedback">
+            <div *ngIf="f['nombre'].errors['required']">Campo obligatorio</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <app-combo-estados
+            [dibujar]="item.estadoNavigation"
+            (emitir)="seleccionEstado($event)"
+          >
+          </app-combo-estados>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-6">
+          <label for="Nombre" class="col-sm-12 col-form-label"
+            >Nro. Disposición:</label
+          >
+          <input
+            [(ngModel)]="item.nroDisposicion"
+            id="codigo"
+            type="text"
+            class="form-control"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+        <div class="col-md-6">
+          <label for="Nombre" class="col-sm-12 col-form-label"
+            >Nro. Proyecto:</label
+          >
+          <input
+            [(ngModel)]="item.nroProyecto"
+            id="codigo"
+            type="text"
+            class="form-control"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-6">
+            <label for="Nombre" class="col-sm-12 col-form-label"
+            >Referente de Unidad:</label
+          >
+          <input
+            [(ngModel)]="item.referenteUnidad"
+            id="codigo"
+            type="text"
+            class="form-control"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+        <div class="col-md-6">
+            <label for="Nombre" class="col-sm-12 col-form-label"
+            >Nro. Cel. o Win Referente:</label
+          >
+          <input
+            [(ngModel)]="item.nroWinUnidad"
+            id="codigo"
+            type="text"
+            class="form-control"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-6">
+            <label class="col-sm-12 col-form-label" for="">Servidor Web</label>
+            <app-combo-servidor
+            [dibujar]="dtItem.srvWebNavigation"
+            (emitir)="seleccionServidorWeb($event)"
+          >
+          </app-combo-servidor>
+        </div>
+        <div class="col-md-6">
+            <label class="col-sm-12 col-form-label" for="">Servidor Api</label>
+            <app-combo-servidor
+            [dibujar]="dtItem.srvApiNavigation"
+            (emitir)="seleccionServidorApi($event)"
+          >
+          </app-combo-servidor>
+        </div>
+      </div>
+      <br />
+      <br />
+      <hr />
+      <div class="row">
+        <button class="btn btn-dark" type="submit">Guardar</button>
+        &nbsp;
+        <button class="btn btn-info" type="button" (click)="back()">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+<br>

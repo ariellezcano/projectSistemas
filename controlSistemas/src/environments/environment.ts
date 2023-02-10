@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
 
-  URL:'http://10.125.30.248/api/',
+  URL:'http://10.125.30.248:7007/api/',
   URLOci: 'https://policiadigital.chaco.gob.ar:9090/api_oci/',
 };
 

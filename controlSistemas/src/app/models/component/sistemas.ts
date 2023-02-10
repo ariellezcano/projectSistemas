@@ -3,6 +3,7 @@ export class Sistemas {
     nombre!: string;
     fechaPresentacion: any;
     unidad!: number;
+    nombreUnidad!: string;
     estado!: number;
     nroDisposicion!: string;
     nroProyecto!: string;

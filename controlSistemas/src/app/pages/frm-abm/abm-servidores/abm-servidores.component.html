@@ -1,0 +1,84 @@
+<div class="container-fluid">
+  <br />
+  <div class="row alert alert-success text-center">
+    <div class="col-md-12">
+      <legend><b>Panel Administrador de Servidores</b></legend>
+    </div>
+  </div>
+  <div class="row">
+    <form class="text-center" [formGroup]="form" (ngSubmit)="doAction()">
+      <div class="form-group row">
+        <div class="col-md-6">
+          <label for="Nombre" class="col-sm-12 col-form-label"
+            >Ingrese Nombre:</label
+          >
+          <input
+            [(ngModel)]="item.nombre"
+            id="codigo"
+            type="text"
+            class="form-control"
+            formControlName="nombre"
+            [ngClass]="{ 'is-invalid': enviado && f['nombre'].errors }"
+          />
+          <div *ngIf="enviado && f['nombre'].errors" class="invalid-feedback">
+            <div *ngIf="f['nombre'].errors['required']">Campo obligatorio</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <app-combo-tipo-servidor
+            [dibujar]="item.tipoServidorNavigation"
+            (emitir)="seleccionTipoServidor($event)"
+          >
+          </app-combo-tipo-servidor>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-6">
+          <label class="col-sm-12 col-form-label">Sistema Operativo:</label>
+          <select
+            [ngModelOptions]="{ standalone: true }"
+            [(ngModel)]="item.so"
+            class="form-select text-center"
+            aria-label="Default select example"
+            formControlName="so"
+            [ngClass]="{ 'is-invalid': enviado && f['so'].errors }"
+          >
+            <option value="Windows Server">Windows Server</option>
+            <option value="Linux Debian">Linux Debian</option>
+            <option value="Windows 10">Windows 10</option>
+            <option value="Linux Ubuntu">Linux Ubuntu</option>
+          </select>
+          <div *ngIf="enviado && f['so'].errors" class="invalid-feedback">
+            <div *ngIf="f['so'].errors['required']">Campo obligatorio</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+            <label for="Nombre" class="col-sm-12 col-form-label"
+            >Id. Ip Server:</label
+          >
+          <input
+            [(ngModel)]="item.ipServidor"
+            id="codigo"
+            type="text"
+            class="form-control"
+            formControlName="ipServer"
+            [ngClass]="{ 'is-invalid': enviado && f['ipServer'].errors }"
+          />
+          <div *ngIf="enviado && f['ipServer'].errors" class="invalid-feedback">
+            <div *ngIf="f['ipServer'].errors['required']">Campo obligatorio</div>
+          </div>
+
+        </div>
+      </div>
+      <br />
+      <hr />
+      <div class="row">
+        <button class="btn btn-dark" type="submit">Guardar</button>
+        &nbsp;
+        <button class="btn btn-info" type="button" (click)="back()">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
