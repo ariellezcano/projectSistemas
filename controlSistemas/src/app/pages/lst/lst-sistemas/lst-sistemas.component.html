@@ -1,184 +1,227 @@
 <div class="container-fluid">
-    <br />
-    <div class="row alert alert-info">
-      <div class="col-md-6">
-        <legend for=""><b>Lista de Sistemas</b></legend>
-      </div>
-      <div class="col-md-6">
-        <button (click)="linkear(0)" class="btn btn-primary">
-          <i class="fa fa-pencil-square" aria-hidden="true"></i>&nbsp; Agregar
-        </button>
-      </div>
+  <br />
+  <div class="row alert alert-info">
+    <div class="col-md-6">
+      <legend for=""><b>Lista de Sistemas</b></legend>
     </div>
-    <div class="row">
-      <app-fil-sistemas (emmit)="doFound($event)"></app-fil-sistemas>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <table class="table table-bordered border-primary text-center">
-          <thead>
-            <tr>
-              <!-- <th scope="col">#</th> -->
-              <th scope="col">Nombre</th>
-              <th scope="col">Fecha Pres.</th>
-              <th scope="col">Unidad</th>
-              <th scope="col">Nro. Disp.</th>
-              <th scope="col">Nro. Proyecto</th>
-              <th scope="col">Estado</th>
-              <th scope="col">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of items">
-              <!-- <th>{{ item.id }}</th> -->
-              <td class="text-primary">{{ item.nombre }}</td>
-              <td>{{ item.fechaPresentacion | date: "dd/MM/yyyy" }}</td>
-              <td>{{ item.nombreUnidad }}</td>
-              <td>{{ item.nroDisposicion }}</td>
-              <td>{{ item.nroProyecto }}</td>
-              <td>{{ valor(item.activo) }}</td>
-              <td>
-                <button
-                  type="button"
-                  (click)="sistema(item.id)"
-                  data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
-                  title="Ver Detalle"
-                  placement="top"
-                  show-delay="10"
-                  class="btn btn-warning btn-sm"
-                >
-                <i class="fa fa-check" aria-hidden="true"></i>
-              </button>
-                &nbsp;
-                <button
-                  type="button"
-                  (click)="linkear(item.id)"
-                  title="Modificar"
-                  placement="top"
-                  show-delay="10"
-                  class="btn btn-info btn-sm"
-                >
-                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                </button>
-                &nbsp;
-                <button
-                  type="button"
-                  (click)="eliminar(item.id)"
-                  title="Eliminar"
-                  placement="top"
-                  show-delay="10"
-                  class="btn btn-danger btn-sm"
-                >
-                  <i class="fa fa-trash"></i>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div
-        *ngIf="items.length === 0"
-        class="alert alert-info alert-dismissible fade show text-center"
-        role="alert"
-      >
-        <strong>No hay datos</strong>
-      </div>
-    </div>
-    <hr />
-    <div class="row">
-      <button class="btn btn-primary" type="button" (click)="back()">
-        <i class="fa fa-hand-o-left" aria-hidden="true"></i> &nbsp; Volver a
-        Inicio
+    <div class="col-md-6">
+      <button (click)="linkear(0)" class="btn btn-primary">
+        <i class="fa fa-pencil-square" aria-hidden="true"></i>&nbsp; Agregar
       </button>
     </div>
   </div>
-  
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header alert alert-primary">
-          <h5 class="modal-title" id="exampleModalLabel">Detalle del Sistema</h5>
-        </div>
-        <div class="modal-body">
-          <div class="container text-center">
-            <div class="row">
-              <div class="col-md-6">
-                <label for="">
-                  Nombre del Sistema: <b>{{item.nombre}}</b>
-                </label>
-              </div>
-              <div class="col-md-6">
-                <label for="">
-                  Estado del Sistema: <b>{{item.estadoNavigation?.nombre}}</b>
-                </label>
-              </div>
+  <div class="row">
+    <app-fil-sistemas (emmit)="doFound($event)"></app-fil-sistemas>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <table class="table table-bordered border-primary text-center">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Fecha Pres.</th>
+            <th scope="col">Unidad</th>
+            <th scope="col">Período</th>
+            <th scope="col">Estado</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of items">
+            <th>{{ item.id }}</th>
+            <td class="text-primary">
+              <b>{{ item.nombre }}</b>
+            </td>
+            <td>{{ item.fechaPresentacion | date : "dd/MM/yyyy" }}</td>
+            <td class="text-danger">
+              <b> {{ item.nombreUnidad }}</b>
+            </td>
+            <td class="text-success">
+              <b>{{ item.estadoNavigation?.nombre }}</b>
+            </td>
+            <td>{{ valor(item.activo) }}</td>
+            <td>
+              <button
+                type="button"
+                (click)="sistema(item.id)"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                title="Ver Detalle"
+                placement="top"
+                show-delay="10"
+                class="btn btn-warning btn-sm"
+              >
+                <i class="fa fa-check" aria-hidden="true"></i>
+              </button>
+              &nbsp;
+              <button
+                type="button"
+                (click)="linkear(item.id)"
+                title="Modificar"
+                placement="top"
+                show-delay="10"
+                class="btn btn-info btn-sm"
+              >
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+              </button>
+              &nbsp;
+              <button
+                type="button"
+                (click)="eliminar(item.id)"
+                title="Eliminar"
+                placement="top"
+                show-delay="10"
+                class="btn btn-danger btn-sm"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div
+      *ngIf="items.length === 0"
+      class="alert alert-info alert-dismissible fade show text-center"
+      role="alert"
+    >
+      <strong>No hay datos</strong>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <button class="btn btn-primary" type="button" (click)="back()">
+      <i class="fa fa-hand-o-left" aria-hidden="true"></i> &nbsp; Volver a
+      Inicio
+    </button>
+  </div>
+</div>
+
+<!-- Modal detalles -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header alert alert-primary">
+        <h5 class="modal-title" id="exampleModalLabel">Detalle del Sistema</h5>
+      </div>
+      <div class="modal-body">
+        <div class="container text-center">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="">
+                Nombre del Sistema: <b>{{ item.nombre }}</b>
+              </label>
             </div>
-            <hr>
-            <div class="row">
-              <legend><b> Detalle Servidor Web, Api y Bd</b></legend>
-              <hr>
-              <legend>Alojamiento Web</legend>
-              <div class="col-md-6">
-                <label for="">
-                  Servidor: <b>{{dtSistema.srvWebNavigation?.nombre}}</b>
-                </label>
-              </div>
-              <div class="col-md-6">
-                <label for="">
-                  Tipo de Servidor: <b>{{dtSistema.srvWebNavigation?.tipoServidorNavigation?.nombre}}</b>
-                </label>
-              </div>
+            <div class="col-md-6">
+              <label for="">
+                Estado del Sistema: <b>{{ item.estadoNavigation?.nombre }}</b>
+              </label>
             </div>
-            <hr>
-            <div class="row">
-              <div class="col-md-6">
-                <label for="">
-                  Sistema Operativo: <b>{{dtSistema.srvWebNavigation?.so}}</b>
-                </label>
-              </div>
-              <div class="col-md-6">
-                Id. Ip Server: <b>{{dtSistema.srvWebNavigation?.ipServidor}}</b>
-              </div>
+          </div>
+          <div class="row">
+            <div *ngIf="item.nroDisposicion != undefined" class="col-md-6">
+              <label for="">
+                Nro. Disposición: <b>{{ item.nroDisposicion }}</b>
+              </label>
             </div>
-            <hr>
-            <div class="row">
-              <legend>Alojamiento Api</legend>
-              <div class="col-md-6">
-                <label for="">
-                  Servidor: <b>{{dtSistema.srvApiNavigation?.nombre}}</b>
-                </label>
-              </div>
-              <div class="col-md-6">
-                <label for="">
-                  Tipo de Servidor: <b>{{dtSistema.srvApiNavigation?.tipoServidorNavigation?.nombre}}</b>
-                </label>
-              </div>
+            <div *ngIf="item.nroDisposicion != undefined" class="col-md-6">
+              <label for="">
+                Nro. Proyecto: <b>{{ item.nroProyecto }}</b>
+              </label>
             </div>
-            <hr>
-            <div class="row">
-              <div class="col-md-6">
-                <label for="">
-                  Sistema Operativo: <b>{{dtSistema.srvApiNavigation?.so}}</b>
-                </label>
-              </div>
-              <div class="col-md-6">
-                Id. Ip Server: <b>{{dtSistema.srvApiNavigation?.ipServidor}}</b>
-              </div>
+          </div>
+          <div class="row">
+            <div *ngIf="item.referenteUnidad != undefined" class="col-md-6">
+              <label for="">
+                Referente Unidad: <b>{{ item.referenteUnidad }}</b>
+              </label>
             </div>
-            <hr>
-            <div class="row">
-              <legend>Base de Dato</legend>
-              <div class="col-md-12">
-                Gestor de Bd: <b>{{dtSistema.gestorBd}}</b>
-              </div>
+            <div *ngIf="item.nroWinUnidad != undefined" class="col-md-6">
+              <label for="">
+                Nro. Contacto: <b>{{ item.nroWinUnidad }}</b>
+              </label>
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <legend><b> Detalle Servidor Web, Api y Bd</b></legend>
+            <hr />
+            <legend>Alojamiento Web</legend>
+            <div class="col-md-6">
+              <label for="">
+                Servidor: <b>{{ dtSistema.srvWebNavigation?.nombre }}</b>
+              </label>
+            </div>
+            <div class="col-md-6">
+              <label for="">
+                Tipo de Servidor:
+                <b>{{
+                  dtSistema.srvWebNavigation?.tipoServidorNavigation?.nombre
+                }}</b>
+              </label>
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col-md-6">
+              <label for="">
+                Sistema Operativo: <b>{{ dtSistema.srvWebNavigation?.so }}</b>
+              </label>
+            </div>
+            <div class="col-md-6">
+              Id. Ip Server: <b>{{ dtSistema.srvWebNavigation?.ipServidor }}</b>
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <legend>Alojamiento Api</legend>
+            <div class="col-md-6">
+              <label for="">
+                Servidor: <b>{{ dtSistema.srvApiNavigation?.nombre }}</b>
+              </label>
+            </div>
+            <div class="col-md-6">
+              <label for="">
+                Tipo de Servidor:
+                <b>{{
+                  dtSistema.srvApiNavigation?.tipoServidorNavigation?.nombre
+                }}</b>
+              </label>
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <div class="col-md-6">
+              <label for="">
+                Sistema Operativo: <b>{{ dtSistema.srvApiNavigation?.so }}</b>
+              </label>
+            </div>
+            <div class="col-md-6">
+              Id. Ip Server: <b>{{ dtSistema.srvApiNavigation?.ipServidor }}</b>
+            </div>
+          </div>
+          <hr />
+          <div class="row">
+            <legend>Base de Dato</legend>
+            <div class="col-md-12">
+              Gestor de Bd: <b>{{ dtSistema.gestorBd }}</b>
             </div>
           </div>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Salir</button>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          <i class="fa fa-eye-slash" aria-hidden="true"></i>&nbsp;
+          Finalizar revisión
+        </button>
       </div>
     </div>
   </div>
+</div>
