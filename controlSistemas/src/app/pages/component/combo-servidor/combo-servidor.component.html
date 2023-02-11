@@ -11,7 +11,7 @@
           aria-label=".form-select-lg example"
         >
           <option *ngFor="let item of items" [ngValue]="item">
-            {{ item.nombre }} - {{item.tipoServidorNavigation?.nombre}}
+            {{item.so}} - {{item.ipServidor}} - {{ item.nombre }} - {{item.tipoServidorNavigation?.nombre}}
           </option>
         </select>
       </div>

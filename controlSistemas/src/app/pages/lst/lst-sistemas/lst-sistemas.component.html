@@ -40,14 +40,16 @@
               <td>
                 <button
                   type="button"
-                  (click)="linkear(item.id)"
-                  title="Asignar Detalles"
+                  (click)="sistema(item.id)"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
+                  title="Ver Detalle"
                   placement="top"
                   show-delay="10"
                   class="btn btn-warning btn-sm"
                 >
-                  <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                </button>
+                <i class="fa fa-check" aria-hidden="true"></i>
+              </button>
                 &nbsp;
                 <button
                   type="button"
@@ -92,3 +94,91 @@
     </div>
   </div>
   
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header alert alert-primary">
+          <h5 class="modal-title" id="exampleModalLabel">Detalle del Sistema</h5>
+        </div>
+        <div class="modal-body">
+          <div class="container text-center">
+            <div class="row">
+              <div class="col-md-6">
+                <label for="">
+                  Nombre del Sistema: <b>{{item.nombre}}</b>
+                </label>
+              </div>
+              <div class="col-md-6">
+                <label for="">
+                  Estado del Sistema: <b>{{item.estadoNavigation?.nombre}}</b>
+                </label>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <legend><b> Detalle Servidor Web, Api y Bd</b></legend>
+              <hr>
+              <legend>Alojamiento Web</legend>
+              <div class="col-md-6">
+                <label for="">
+                  Servidor: <b>{{dtSistema.srvWebNavigation?.nombre}}</b>
+                </label>
+              </div>
+              <div class="col-md-6">
+                <label for="">
+                  Tipo de Servidor: <b>{{dtSistema.srvWebNavigation?.tipoServidorNavigation?.nombre}}</b>
+                </label>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="">
+                  Sistema Operativo: <b>{{dtSistema.srvWebNavigation?.so}}</b>
+                </label>
+              </div>
+              <div class="col-md-6">
+                Id. Ip Server: <b>{{dtSistema.srvWebNavigation?.ipServidor}}</b>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <legend>Alojamiento Api</legend>
+              <div class="col-md-6">
+                <label for="">
+                  Servidor: <b>{{dtSistema.srvApiNavigation?.nombre}}</b>
+                </label>
+              </div>
+              <div class="col-md-6">
+                <label for="">
+                  Tipo de Servidor: <b>{{dtSistema.srvApiNavigation?.tipoServidorNavigation?.nombre}}</b>
+                </label>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-md-6">
+                <label for="">
+                  Sistema Operativo: <b>{{dtSistema.srvApiNavigation?.so}}</b>
+                </label>
+              </div>
+              <div class="col-md-6">
+                Id. Ip Server: <b>{{dtSistema.srvApiNavigation?.ipServidor}}</b>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <legend>Base de Dato</legend>
+              <div class="col-md-12">
+                Gestor de Bd: <b>{{dtSistema.gestorBd}}</b>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Salir</button>
+        </div>
+      </div>
+    </div>
+  </div>

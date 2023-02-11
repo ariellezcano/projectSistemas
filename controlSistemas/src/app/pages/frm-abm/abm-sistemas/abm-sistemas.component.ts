@@ -8,8 +8,17 @@ import {
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { Unidad } from 'src/app/models/component/unidad';
-import { DetalleSistemas, Estados, Servidores, Sistemas } from 'src/app/models/index.models';
-import { DetalleSistemasService, SistemasService, UnidadService } from 'src/app/services/index.service';
+import {
+  DetalleSistemas,
+  Estados,
+  Servidores,
+  Sistemas,
+} from 'src/app/models/index.models';
+import {
+  DetalleSistemasService,
+  SistemasService,
+  UnidadService,
+} from 'src/app/services/index.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -45,13 +54,13 @@ export class AbmSistemasComponent implements OnInit {
     this.form = this.formBuilder.group({
       nombre: ['', Validators.required],
       fechaPresentacion: ['', Validators.required],
-      //ipServer: ['', Validators.required]
+      gestorBd: ['', Validators.required],
     });
 
     //captura el id que viene en el url
     this.id = this.route.snapshot.params['id'];
     this.findId();
-    this.findIdDetalleSistema()
+    this.findIdDetalleSistema();
   }
 
   get f(): { [key: string]: AbstractControl } {
@@ -63,7 +72,7 @@ export class AbmSistemasComponent implements OnInit {
       try {
         let data = await this.wsdl.getFindId(this.id).then();
         const result = JSON.parse(JSON.stringify(data));
-       // console.log('find', result);
+        // console.log('find', result);
         if (result.code == 200) {
           this.item = result.dato;
           if (this.item.fechaPresentacion != undefined) {
@@ -81,7 +90,7 @@ export class AbmSistemasComponent implements OnInit {
       try {
         let data = await this.wsdlDetalleSistema.getFindId(this.id).then();
         const result = JSON.parse(JSON.stringify(data));
-       // console.log('find', result);
+        console.log('find', result);
         if (result.code == 200) {
           this.dtItem = result.dato;
         }
@@ -94,10 +103,9 @@ export class AbmSistemasComponent implements OnInit {
     if (this.form.valid) {
       if (this.id > 0) {
         this.actualizarDatos(this.item);
-        this.actualizarDatosDetalle(this.dtItem);
+        //this.actualizarDatosDetalle(this.dtItem);
       } else {
         this.guardar();
-        this.guardarDtSistema();
       }
     }
   }
@@ -140,9 +148,8 @@ export class AbmSistemasComponent implements OnInit {
     } catch (error) {}
   }
 
-
   async guardar() {
-    console.log('items', this.item);
+    //console.log('items', this.item);
     try {
       let data = await this.wsdl
         .doInsert(this.item)
@@ -153,14 +160,23 @@ export class AbmSistemasComponent implements OnInit {
         ();
       const result = JSON.parse(JSON.stringify(data));
       if (result.code == 200) {
-        this.back();
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Dato guardado correctamente!',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        this.idSistema = result.dato.id;
+        if (
+          this.dtItem.srvWeb > 0 &&
+          this.dtItem.srvApi > 0 &&
+          this.dtItem.gestorBd != undefined
+        ) {
+          this.guardarDtSistema();
+        } else {
+          this.back();
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Dato guardado correctamente!',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
       } else if (result.code == 204) {
         Swal.fire({
           icon: 'info',
@@ -178,7 +194,8 @@ export class AbmSistemasComponent implements OnInit {
   }
 
   async guardarDtSistema() {
-    console.log('items', this.dtItem);
+    console.log('dt', this.dtItem);
+    this.dtItem.sistema = this.idSistema;
     try {
       let data = await this.wsdlDetalleSistema
         .doInsert(this.dtItem)

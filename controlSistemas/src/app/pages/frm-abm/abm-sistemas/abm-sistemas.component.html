@@ -16,7 +16,7 @@
             [(ngModel)]="item.fechaPresentacion"
             id="codigo"
             type="date"
-            class="form-control"
+            class="form-control text-center"
             formControlName="fechaPresentacion"
             [ngClass]="{
               'is-invalid': enviado && f['fechaPresentacion'].errors
@@ -55,7 +55,7 @@
             [(ngModel)]="item.nombre"
             id="codigo"
             type="text"
-            class="form-control"
+            class="form-control text-center"
             formControlName="nombre"
             [ngClass]="{ 'is-invalid': enviado && f['nombre'].errors }"
           />
@@ -80,7 +80,7 @@
             [(ngModel)]="item.nroDisposicion"
             id="codigo"
             type="text"
-            class="form-control"
+            class="form-control text-center"
             [ngModelOptions]="{ standalone: true }"
           />
         </div>
@@ -92,49 +92,57 @@
             [(ngModel)]="item.nroProyecto"
             id="codigo"
             type="text"
-            class="form-control"
+            class="form-control text-center"
             [ngModelOptions]="{ standalone: true }"
           />
         </div>
       </div>
       <div class="form-group row">
         <div class="col-md-6">
-            <label for="Nombre" class="col-sm-12 col-form-label"
+          <label for="Nombre" class="col-sm-12 col-form-label"
             >Referente de Unidad:</label
           >
           <input
             [(ngModel)]="item.referenteUnidad"
             id="codigo"
             type="text"
-            class="form-control"
+            class="form-control text-center"
             [ngModelOptions]="{ standalone: true }"
           />
         </div>
         <div class="col-md-6">
-            <label for="Nombre" class="col-sm-12 col-form-label"
+          <label for="Nombre" class="col-sm-12 col-form-label"
             >Nro. Cel. o Win Referente:</label
           >
           <input
             [(ngModel)]="item.nroWinUnidad"
             id="codigo"
             type="text"
-            class="form-control"
+            class="form-control text-center"
             [ngModelOptions]="{ standalone: true }"
           />
         </div>
       </div>
+      <br>
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <legend>
+           <b> Detalle del Sistema </b>
+          </legend>
+        </div>
+      </div>
       <div class="form-group row">
         <div class="col-md-6">
-            <label class="col-sm-12 col-form-label" for="">Servidor Web</label>
-            <app-combo-servidor
+          <label class="col-sm-12 col-form-label" for=""><b>Servidor Web alojado:</b></label>
+          <app-combo-servidor
             [dibujar]="dtItem.srvWebNavigation"
             (emitir)="seleccionServidorWeb($event)"
           >
           </app-combo-servidor>
         </div>
         <div class="col-md-6">
-            <label class="col-sm-12 col-form-label" for="">Servidor Api</label>
-            <app-combo-servidor
+          <label class="col-sm-12 col-form-label" for=""><b>Servidor Api alojado:</b></label>
+          <app-combo-servidor
             [dibujar]="dtItem.srvApiNavigation"
             (emitir)="seleccionServidorApi($event)"
           >
@@ -142,27 +150,30 @@
         </div>
       </div>
       <div class="form-group row">
-
-      <div class="col-md-6">
-        <label class="col-sm-12 col-form-label">Sistema Operativo:</label>
-        <select
-          [ngModelOptions]="{ standalone: true }"
-          [(ngModel)]="dtItem.gestorBd"
-          class="form-select text-center"
-          aria-label="Default select example"
-          formControlName="so"
-          [ngClass]="{ 'is-invalid': enviado && f['so'].errors }"
-        >
-          <option value="Windows Server">Windows Server</option>
-          <option value="Linux Debian">Linux Debian</option>
-          <option value="Windows 10">Windows 10</option>
-          <option value="Linux Ubuntu">Linux Ubuntu</option>
-        </select>
-        <div *ngIf="enviado && f['so'].errors" class="invalid-feedback">
-          <div *ngIf="f['so'].errors['required']">Campo obligatorio</div>
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+          <label class="col-sm-12 col-form-label">Sistema Gestor de Bd:</label>
+          <select
+            [ngModelOptions]="{ standalone: true }"
+            [(ngModel)]="dtItem.gestorBd"
+            class="form-select text-center"
+            aria-label="Default select example"
+            formControlName="gestorBd"
+            [ngClass]="{ 'is-invalid': enviado && f['gestorBd'].errors }"
+          >
+            <option value="MySQL workbench - Maria Db">
+              MySQL workbench - Maria Db
+            </option>
+            <option value="Sql Server">Sql Server</option>
+          </select>
+          <div *ngIf="enviado && f['gestorBd'].errors" class="invalid-feedback">
+            <div *ngIf="f['gestorBd'].errors['required']">
+              Campo obligatorio
+            </div>
+          </div>
         </div>
+        <div class="col-md-3"></div>
       </div>
-    </div>
       <br />
       <br />
       <hr />
@@ -176,4 +187,4 @@
     </form>
   </div>
 </div>
-<br>
+<br />

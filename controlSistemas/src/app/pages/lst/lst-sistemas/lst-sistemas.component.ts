@@ -1,34 +1,66 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Sistemas } from 'src/app/models/index.models';
-import { SistemasService } from 'src/app/services/index.service';
+import { DetalleSistemas, Sistemas } from 'src/app/models/index.models';
+import {
+  DetalleSistemasService,
+  SistemasService,
+} from 'src/app/services/index.service';
 import Swal from 'sweetalert2';
 import { FilSistemasComponent } from '../../filters/fil-sistemas/fil-sistemas.component';
 
 @Component({
   selector: 'app-lst-sistemas',
   templateUrl: './lst-sistemas.component.html',
-  styleUrls: ['./lst-sistemas.component.scss']
+  styleUrls: ['./lst-sistemas.component.scss'],
 })
 export class LstSistemasComponent implements OnInit {
-
-  @ViewChild(FilSistemasComponent, { static: false }) fil!: FilSistemasComponent;
+  @ViewChild(FilSistemasComponent, { static: false })
+  fil!: FilSistemasComponent;
 
   items: Sistemas[];
   item: Sistemas;
+  dtSistema: DetalleSistemas;
 
-  constructor(private wsdl: SistemasService, private router: Router) {
+  constructor(
+    private wsdl: SistemasService,
+    private wsdlDetalle: DetalleSistemasService,
+    private router: Router
+  ) {
     this.items = [];
     this.item = new Sistemas();
+    this.dtSistema = new DetalleSistemas();
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 
   doFound(event: Sistemas[]) {
-    console.log(event)
+    console.log(event);
     this.items = event;
+  }
+
+  async sistema(id: number){
+    try {
+      let data = await this.wsdl.getFindId(id).then();
+      const result = JSON.parse(JSON.stringify(data));
+      if(result.code == '200'){
+        this.item = result.dato;
+        this.detalleSistema(id);
+      }  
+    } catch (error) {
+      Swal.fire("Error al capturar los datos")
+    }
+  }
+
+  async detalleSistema(id: number){
+    try {
+      let data = await this.wsdlDetalle.getFindId(id).then();
+      const result = JSON.parse(JSON.stringify(data));
+      if(result.code == '200'){
+        this.dtSistema = result.dato;
+      }
+    } catch (error) {
+      Swal.fire("Error al capturar los datos")
+    }
   }
 
   async eliminar(id: any) {
@@ -90,5 +122,4 @@ export class LstSistemasComponent implements OnInit {
   back() {
     this.router.navigate(['']);
   }
-
 }
