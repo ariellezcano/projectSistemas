@@ -93,9 +93,9 @@ export class AbmSistemasComponent implements OnInit {
         //console.log('find', result);
         if (result.code == 200) {
           this.dtItem = result.dato;
-          console.log("find if", this.dtItem)
+         // console.log("find if", this.dtItem)
         }else{
-          console.log("no hay datos", this.dtItem)
+         // console.log("no hay datos", this.dtItem)
         }
       } catch (error) {}
     }
