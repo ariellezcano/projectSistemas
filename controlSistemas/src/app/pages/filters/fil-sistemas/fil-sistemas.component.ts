@@ -58,7 +58,7 @@ export class FilSistemasComponent implements OnInit {
           .then();
         const result = JSON.parse(JSON.stringify(data));
         if (result.code == 200) {
-          console.log(result.data)
+          //console.log(result.data)
           this.items = result.data;
           this.totalRegistros = result.totalRegistros;
           this.totalPaginas = result.totalPaginas;

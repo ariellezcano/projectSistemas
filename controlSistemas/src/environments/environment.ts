@@ -6,9 +6,9 @@ export const environment = {
   production: false,
 
   //lOCAL CASA
-  URL:'http://192.168.1.106:7007/api/',
+  //URL:'http://192.168.1.106:7007/api/',
   //lOCAL TRABAJO
-  //URL:'http://10.125.30.248:7007/api/',
+  URL:'http://10.125.30.248:7007/api/',
   URLOci: 'https://policiadigital.chaco.gob.ar:9090/api_oci/',
 };
 

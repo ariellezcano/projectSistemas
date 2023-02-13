@@ -90,9 +90,12 @@ export class AbmSistemasComponent implements OnInit {
       try {
         let data = await this.wsdlDetalleSistema.getFindId(this.id).then();
         const result = JSON.parse(JSON.stringify(data));
-        console.log('find', result);
+        //console.log('find', result);
         if (result.code == 200) {
           this.dtItem = result.dato;
+          console.log("find if", this.dtItem)
+        }else{
+          console.log("no hay datos", this.dtItem)
         }
       } catch (error) {}
     }
@@ -116,14 +119,22 @@ export class AbmSistemasComponent implements OnInit {
       let data = await this.wsdl.doUpdate(this.id, obj).then();
       const result = JSON.parse(JSON.stringify(data));
       if (result.code == 200) {
-        this.back();
-        Swal.fire({
-          position: 'top-end',
-          icon: 'success',
-          title: 'Dato actualizado correctamente!',
-          showConfirmButton: false,
-          timer: 1500,
-        });
+        if(this.dtItem.id == undefined){
+          this.idSistema = this.id;
+          this.guardarDtSistema();
+        }
+        if (this.dtItem.id > 0) {
+          this.actualizarDatosDetalle(this.dtItem);
+        } else {
+          this.back();
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Dato actualizado correctamente!',
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
       } else if (result.code == 204) {
       }
     } catch (error) {}
@@ -194,7 +205,7 @@ export class AbmSistemasComponent implements OnInit {
   }
 
   async guardarDtSistema() {
-    console.log('dt', this.dtItem);
+    //console.log('dt', this.dtItem);
     this.dtItem.sistema = this.idSistema;
     try {
       let data = await this.wsdlDetalleSistema
