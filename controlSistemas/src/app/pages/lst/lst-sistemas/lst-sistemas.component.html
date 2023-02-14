@@ -35,7 +35,7 @@
             </td>
             <td>{{ item.fechaPresentacion | date : "dd/MM/yyyy" }}</td>
             <td class="text-danger">
-              <b> {{ item.nombreUnidad }}</b>
+              <b> {{ item.solicitudNavigation?.nombreUnidad }}</b>
             </td>
             <td class="text-success">
               <b>{{ item.estadoNavigation?.nombre }}</b>

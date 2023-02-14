@@ -9,6 +9,7 @@ export const environment = {
   //URL:'http://192.168.1.106:7007/api/',
   //lOCAL TRABAJO
   URL:'http://10.125.30.248:7007/api/',
+  URLRealJava: 'http://10.125.31.150:3001/',
   URLOci: 'https://policiadigital.chaco.gob.ar:9090/api_oci/',
 };
 

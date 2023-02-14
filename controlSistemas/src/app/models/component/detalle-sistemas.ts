@@ -4,9 +4,11 @@ export class DetalleSistemas {
     srvWeb!: number;
     srvApi!: number;
     gestorBd!: string;
-    activo!: boolean;
+    frameworkLenguaje!: number;
+    activo?: boolean;
 
     sistemaNavigation: any;
     srvWebNavigation: any;
     srvApiNavigation: any;
+    entornoNavigation: any;
 }

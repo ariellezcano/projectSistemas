@@ -1,0 +1,36 @@
+<label class="col-sm-12 col-form-label">Personal Policial que solicita:</label>
+<form class="form-inline my-2 my-lg-0">
+  <div class="col-md-12">
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">
+        <i class="fa fa-search" aria-hidden="true"></i>
+      </span>
+      <input
+        [(ngModel)]="criterio"
+        name="criterio"
+        class="form-control mr-sm-2"
+        type="text"
+        placeholder="Buscar"
+        matTooltip="El campo es requerido"
+        (keyup.enter)="buscar()"
+      />
+    </div>
+  </div>
+</form>
+
+<select
+  *ngIf="items.length > 0"
+  style="width: 100%"
+  name="recibe"
+  (ngModelChange)="seleccionarPer($event)"
+  [(ngModel)]="item"
+  [compareWith]="compareFnPer"
+  class="form-control form-sm"
+>
+  <option *ngFor="let item of items" [ngValue]="item">
+    <b
+      >{{ item?.persona?.norDni }} - {{ item?.persona?.apellido }},
+      {{ item?.persona?.nombre }}</b
+    >
+  </option>
+</select>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -10,9 +10,11 @@ import * as moment from 'moment';
 import { Unidad } from 'src/app/models/component/unidad';
 import {
   DetalleSistemas,
+  EntornoLenguaje,
   Estados,
   Servidores,
   Sistemas,
+  SolicitudSistemas,
 } from 'src/app/models/index.models';
 import {
   DetalleSistemasService,
@@ -20,6 +22,7 @@ import {
   UnidadService,
 } from 'src/app/services/index.service';
 import Swal from 'sweetalert2';
+import { FilBuscadorSolicitudComponent } from '../../component/fil-buscador-solicitud/fil-buscador-solicitud.component';
 
 @Component({
   selector: 'app-abm-sistemas',
@@ -27,6 +30,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./abm-sistemas.component.scss'],
 })
 export class AbmSistemasComponent implements OnInit {
+  @ViewChild(FilBuscadorSolicitudComponent, { static: false }) filSolicitud!: FilBuscadorSolicitudComponent;
+
+  
   public id!: number;
   public idSistema!: number;
   //valida el formulario
@@ -93,9 +99,9 @@ export class AbmSistemasComponent implements OnInit {
         //console.log('find', result);
         if (result.code == 200) {
           this.dtItem = result.dato;
-         // console.log("find if", this.dtItem)
-        }else{
-         // console.log("no hay datos", this.dtItem)
+          // console.log("find if", this.dtItem)
+        } else {
+          // console.log("no hay datos", this.dtItem)
         }
       } catch (error) {}
     }
@@ -119,11 +125,11 @@ export class AbmSistemasComponent implements OnInit {
       let data = await this.wsdl.doUpdate(this.id, obj).then();
       const result = JSON.parse(JSON.stringify(data));
       if (result.code == 200) {
-        if(this.dtItem.id == undefined){
+        if (this.dtItem.id == undefined) {
           this.idSistema = this.id;
           this.guardarDtSistema();
-        }
-        if (this.dtItem.id > 0) {
+        } else if (this.dtItem.id > 0) {
+          //console.log("aca llegue", this.dtItem)
           this.actualizarDatosDetalle(this.dtItem);
         } else {
           this.back();
@@ -141,9 +147,9 @@ export class AbmSistemasComponent implements OnInit {
   }
 
   async actualizarDatosDetalle(objDt: DetalleSistemas) {
-    //console.log("enviado modificar", this.item)
+    console.log("enviado modificar", objDt)
     try {
-      let data = await this.wsdlDetalleSistema.doUpdate(this.id, objDt).then();
+      let data = await this.wsdlDetalleSistema.doUpdate(objDt.id, objDt).then();
       const result = JSON.parse(JSON.stringify(data));
       if (result.code == 200) {
         this.back();
@@ -241,12 +247,6 @@ export class AbmSistemasComponent implements OnInit {
     }
   }
 
-  //captura dato del autocompletado
-  unidad(event: Unidad) {
-    this.item.unidad = event.id;
-    this.item.nombreUnidad = event.nombre;
-  }
-
   //captura estado
   seleccionEstado(event: Estados) {
     if (event != undefined) {
@@ -260,11 +260,25 @@ export class AbmSistemasComponent implements OnInit {
       this.dtItem.srvApi = event.id;
     }
   }
+  //captura entorno
+  seleccionEntorno(event: EntornoLenguaje) {
+    if (event != undefined) {
+      this.dtItem.frameworkLenguaje = event.id;
+    }
+  }
 
   //captura provincia
   seleccionServidorWeb(event: Servidores) {
     if (event != undefined) {
       this.dtItem.srvWeb = event.id;
+    }
+  }
+
+  //captura el dato del filtro/combo
+  seleccionSolicitud(event: SolicitudSistemas) {
+    if (event != undefined) {
+      this.item.pedidoNro = event.id;
+      //this.item.capturaLocalidad = event.nombre;
     }
   }
 

@@ -1,0 +1,94 @@
+<div class="container-fluid">
+  <br />
+  <div class="row alert alert-success text-center">
+    <div class="col-md-12">
+      <legend><b>Panel Administrador de Solicitudes</b></legend>
+    </div>
+  </div>
+  <div class="row">
+    <form class="text-center" [formGroup]="form" (ngSubmit)="doAction()">
+      <div class="form-group row">
+        <div class="col-md-6">
+          <label for="Nombre" class="col-sm-12 col-form-label"
+            >Ingrese Nro. de Expte.:</label
+          >
+          <input
+            [(ngModel)]="item.nroExpte"
+            id="codigo"
+            type="text"
+            class="form-control text-center"
+            formControlName="nroExpte"
+            [ngClass]="{ 'is-invalid': enviado && f['nroExpte'].errors }"
+          />
+          <div *ngIf="enviado && f['nroExpte'].errors" class="invalid-feedback">
+            <div *ngIf="f['nroExpte'].errors['required']">
+              Campo obligatorio
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div id="autocompletado" class="col-md-6">
+            <label for="" class="col-sm-12 col-form-label">Unidad:</label>
+            <app-fil-autocompletado-unidad
+              (unidadSeleccionada)="unidad($event)"
+            >
+            </app-fil-autocompletado-unidad>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="item.unidad" class="row">
+        <div class="col-md-12 alert alert-info">
+          Unidad Seleccionada:&nbsp;&nbsp;<b>{{ item.nombreUnidad }}</b>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-6">
+          <label class="col-sm-12 col-form-label">Fecha Solicitud:</label>
+          <input
+            [(ngModel)]="item.fechaSolicita"
+            id="codigo"
+            type="date"
+            class="form-control text-center"
+            formControlName="fecha"
+            [ngClass]="{ 'is-invalid': enviado && f['fecha'].errors }"
+          />
+          <div *ngIf="enviado && f['fecha'].errors" class="invalid-feedback">
+            <div *ngIf="f['fecha'].errors['required']">Campo obligatorio</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <app-fil-persona
+            [dibujar]="item.personaSolicita"
+            (resultado)="personasEncontrados($event)"
+          ></app-fil-persona>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-md-12">
+          <label for="" class="col-sm-12 col-form-label"
+            >Sistema Solicitado:</label
+          >
+          <textarea
+            class="form-control"
+            name="observacion"
+            [(ngModel)]="item.sistemaSolicitado"
+            formControlName="solicitud"
+            [ngClass]="{ 'is-invalid': enviado && f['solicitud'].errors }"
+          ></textarea>
+          <div *ngIf="enviado && f['solicitud'].errors" class="invalid-feedback">
+            <div *ngIf="f['solicitud'].errors['required']">Campo obligatorio</div>
+          </div>
+        </div>
+      </div>
+      <br />
+      <hr />
+      <div class="row">
+        <button class="btn btn-dark" type="submit">Guardar</button>
+        &nbsp;
+        <button class="btn btn-info" type="button" (click)="back()">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
